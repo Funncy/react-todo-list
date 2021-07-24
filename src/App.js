@@ -2,90 +2,99 @@ import React, { Component } from 'react';
 import TodoListTemplate from './components/TodoListTemplate';
 import Form from './components/Form';
 import TodoItemList from './components/TodoItemList';
+import Palette from './components/Palette';
 
 class App extends Component {
+	id = 3;
 
-  id = 3;
+	colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6'];
 
-  state = {
-    input: '',
-    todos: [
-      { id: 0, text: ' 리액트 소개', checked: false},
-      { id: 1, text: ' 리액트 소개', checked: true},
-      { id: 2, text: ' 리액트 소개', checked: false},
-    ]
-  }
+	state = {
+		input: '',
+		todos: [
+			{ id: 0, text: ' 리액트 소개', checked: false, color: '#343a40' },
+			{ id: 1, text: ' 리액트 소개', checked: true, color: '#f03e3e' },
+			{ id: 2, text: ' 리액트 소개', checked: false, color: '#f03e3e' },
+		],
+		color: '#343a40',
+	};
 
-  handleChange = (e) => {
-    this.setState({
-      input: e.target.value
-    });
-  }
+	handleChangeColor = color => {
+		this.setState({
+			color: color,
+		});
+	};
 
-  handleCreate = () => {
-    const { input, todos } = this.state;
-    this.setState({
-      input: '',
-      todos: todos.concat({
-        id: this.id++,
-        text: input,
-        checked: false
-      })
-    });
-  }
+	handleChange = e => {
+		this.setState({
+			input: e.target.value,
+		});
+	};
 
-  handleKeyPress = (e) => {
-    if(e.key === 'Enter') {
-      this.handleCreate();
-    }
-  }
+	handleCreate = () => {
+		const { input, todos, color } = this.state;
+		this.setState({
+			input: '',
+			todos: todos.concat({
+				id: this.id++,
+				text: input,
+				checked: false,
+				color: color,
+			}),
+		});
+	};
 
-  handleToggle = (id) => {
-    const { todos } = this.state;
+	handleKeyPress = e => {
+		if (e.key === 'Enter') {
+			this.handleCreate();
+		}
+	};
 
-    const index = todos.findIndex(todo => todo.id === id);
-    const selected = todos[index];
+	handleToggle = id => {
+		const { todos } = this.state;
 
-    const nextTodos = [...todos];
+		const index = todos.findIndex(todo => todo.id === id);
+		const selected = todos[index];
 
-    nextTodos[index] = {
-      ...selected,
-      checked: !selected.checked
-    };
+		const nextTodos = [...todos];
 
-    this.setState({
-      todos: nextTodos
-    });
-  }
+		nextTodos[index] = {
+			...selected,
+			checked: !selected.checked,
+		};
 
-  handleRemove = (id) => {
-    const { todos } = this.state;
-    this.setState({
-      todos: todos.filter(todo => todo.id !== id)
-    });
-  }
+		this.setState({
+			todos: nextTodos,
+		});
+	};
 
-  render() {
-    const { input, todos } = this.state;
-    const {
-      handleChange,
-      handleCreate,
-      handleKeyPress,
-      handleToggle,
-      handleRemove
-    } = this;
+	handleRemove = id => {
+		const { todos } = this.state;
+		this.setState({
+			todos: todos.filter(todo => todo.id !== id),
+		});
+	};
 
-    return (
-      <TodoListTemplate form={<Form
-      value={input}
-      onKeyPress={handleKeyPress}
-      onChange={handleChange}
-      onCreate={handleCreate}
-      />}>
-        <TodoItemList todos={todos} onRemove={handleRemove} onToggle={handleToggle}/>
-      </TodoListTemplate>
-    );
-  }
+	render() {
+		const { input, todos, color } = this.state;
+		const { handleChange, handleCreate, handleKeyPress, handleToggle, handleRemove } = this;
+
+		return (
+			<TodoListTemplate
+				form={
+					<Form
+						value={input}
+						onKeyPress={handleKeyPress}
+						onChange={handleChange}
+						onCreate={handleCreate}
+					/>
+				}
+			>
+				<Palette colors={this.colors} selected={color} onSelect={this.handleChangeColor} />
+				<TodoItemList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+			</TodoListTemplate>
+		);
+	}
 }
 
 export default App;
