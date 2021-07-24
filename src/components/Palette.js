@@ -15,7 +15,7 @@ function Palette({ colors, selected, onSelect }) {
 	return (
 		<div className="palette">
 			{colors.map(color => (
-				<Color color={color} active={color === selected} onClick={onSelect} />
+				<Color color={color} active={color === selected} onClick={onSelect} key={color} />
 			))}
 		</div>
 	);
