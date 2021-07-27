@@ -3,6 +3,7 @@ import TodoListTemplate from './components/TodoListTemplate';
 import Form from './components/Form';
 import TodoItemList from './components/TodoItemList';
 import Palette from './components/Palette';
+import TodoContext from './components/TodoContext';
 
 class App extends Component {
 	id = 3;
@@ -91,7 +92,11 @@ class App extends Component {
 				}
 			>
 				<Palette colors={this.colors} selected={color} onSelect={this.handleChangeColor} />
-				<TodoItemList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+				<TodoContext.Provider
+					value={{ todos: todos, onToggle: handleToggle, onRemove: handleRemove }}
+				>
+					<TodoItemList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+				</TodoContext.Provider>
 			</TodoListTemplate>
 		);
 	}

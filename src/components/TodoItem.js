@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import './TodoItem.css';
+import TodoContext from './TodoContext';
 
 class TodoItem extends Component {
+	static contextType = TodoContext;
+
 	shouldComponentUpdate(nextProps, nextState) {
 		return this.props.checked !== nextProps.checked;
 	}
 
 	render() {
-		const { text, checked, id, onToggle, onRemove, color } = this.props;
+		const { text, checked, id, color } = this.props;
+		const { onToggle, onRemove } = this.context;
 		return (
 			<div className="todo-item" onClick={() => onToggle(id)}>
 				<div
