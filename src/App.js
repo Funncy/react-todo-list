@@ -3,6 +3,7 @@ import TodoListTemplate from './components/TodoListTemplate';
 import Form from './components/Form';
 import TodoItemList from './components/TodoItemList';
 import Palette from './components/Palette';
+import TodoContext from './components/TodoContext';
 
 class App extends Component {
 	id = 3;
@@ -17,6 +18,8 @@ class App extends Component {
 			{ id: 2, text: ' 리액트 소개', checked: false, color: '#f03e3e' },
 		],
 		color: '#343a40',
+		onRemove: id => this.handleRemove(id),
+		onToggle: id => this.handleToggle(id),
 	};
 
 	handleChangeColor = color => {
@@ -92,6 +95,9 @@ class App extends Component {
 			>
 				<Palette colors={this.colors} selected={color} onSelect={this.handleChangeColor} />
 				<TodoItemList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+				<TodoContext.Provider value={this.state}>
+					<TodoItemList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+				</TodoContext.Provider>
 			</TodoListTemplate>
 		);
 	}
