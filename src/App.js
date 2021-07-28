@@ -94,9 +94,9 @@ class App extends Component {
 				}
 			>
 				<Palette colors={this.colors} selected={color} onSelect={this.handleChangeColor} />
-				<TodoItemList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+				{/* <TodoItemList  onRemove={handleRemove} onToggle={handleToggle} /> */}
 				<TodoContext.Provider value={this.state}>
-					<TodoItemList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+					<TodoItemList onRemove={handleRemove} onToggle={handleToggle} />
 				</TodoContext.Provider>
 			</TodoListTemplate>
 		);
