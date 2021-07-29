@@ -7,7 +7,6 @@ import TodoContext from './components/TodoContext';
 
 class App extends Component {
 	id = 3;
-
 	colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6'];
 
 	state = {
@@ -94,8 +93,7 @@ class App extends Component {
 				}
 			>
 				<Palette colors={this.colors} selected={color} onSelect={this.handleChangeColor} />
-				{/* <TodoItemList  onRemove={handleRemove} onToggle={handleToggle} /> */}
-				<TodoContext.Provider value={this.state}>
+				<TodoContext.Provider value={{ todos: this.state.todos }}>
 					<TodoItemList onRemove={handleRemove} onToggle={handleToggle} />
 				</TodoContext.Provider>
 			</TodoListTemplate>
