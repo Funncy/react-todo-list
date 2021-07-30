@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './TodoItem.css';
 import TodoContext from './TodoContext';
+import { useRecoilState } from 'recoil';
+import todoState from '../todoState';
 
 // class TodoItem extends Component {
 // 	static contextType = TodoContext;
@@ -33,7 +35,31 @@ import TodoContext from './TodoContext';
 // 	}
 // }
 
-const TodoItem = React.memo(function TodoItem({ text, checked, id, color, onToggle, onRemove }) {
+function TodoItem({ text, checked, id, color }) {
+	const [todos, setTodos] = useRecoilState(todoState);
+
+	const onToggle = id => {
+		const index = todos.findIndex(todo => todo.id === id);
+		const selected = todos[index];
+
+		const nextTodos = [...todos];
+
+		nextTodos[index] = {
+			...selected,
+			checked: !selected.checked,
+		};
+
+		setTodos(nextTodos);
+	};
+
+	const onRemove = id => {
+		console.log(todos);
+		const newTodos = todos.filter(todo => todo.id !== id);
+		console.log(newTodos);
+		setTodos(newTodos);
+		console.log(todos);
+	};
+
 	console.log(`rerendering TodoItem ${id} `);
 	return (
 		<div className="todo-item" onClick={() => onToggle(id)}>
@@ -52,6 +78,6 @@ const TodoItem = React.memo(function TodoItem({ text, checked, id, color, onTogg
 			{checked && <div className="check-mart">✓</div>}
 		</div>
 	);
-});
+}
 
 export default TodoItem;

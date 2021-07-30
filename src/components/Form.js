@@ -1,24 +1,71 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import './Form.css';
+import todoState from '../todoState';
 
-class Form extends Component {
-	shouldComponentUpdate(nextProps, nextState) {
-		return this.props.value !== nextProps.value;
-	}
+function Form() {
+	const [inputValue, setInputValue] = useState('');
+	// const setTodoList = useSetRecoilState(todoState);
+	const [todoList, setTodoList] = useRecoilState(todoState);
 
-	render() {
-		const { value, onChange, onCreate, onKeyPress } = this.props;
-		console.log(`rerendering Form `);
+	const addItem = () => {
+		console.log(todoList);
+		setTodoList(oldTodoList => [
+			...oldTodoList,
+			{
+				id: getId(),
+				text: inputValue,
+				checked: false,
+				color: '#343a40',
+			},
+		]);
+		setInputValue('');
+	};
 
-		return (
-			<div className="form">
-				<input value={value} onChange={onChange} onKeyPress={onKeyPress} />
-				<div className="create-button" onClick={onCreate}>
-					추가
-				</div>
+	const onChange = ({ target: { value } }) => {
+		setInputValue(value);
+	};
+
+	const keyPress = e => {
+		if (e.key === 'Enter') {
+			addItem();
+		}
+	};
+
+	return (
+		<div className="form">
+			<input value={inputValue} onChange={onChange} onKeyPress={keyPress} />
+			<div className="create-button" onClick={addItem}>
+				추가
 			</div>
-		);
-	}
+		</div>
+	);
 }
+
+// 고유한 Id 생성을 위한 유틸리티
+let id = 0;
+function getId() {
+	return id++;
+}
+
+// class Form extends Component {
+// 	shouldComponentUpdate(nextProps, nextState) {
+// 		return this.props.value !== nextProps.value;
+// 	}
+
+// 	render() {
+// 		const { value, onChange, onCreate, onKeyPress } = this.props;
+// 		console.log(`rerendering Form `);
+
+// 		return (
+// 			<div className="form">
+// 				<input value={value} onChange={onChange} onKeyPress={onKeyPress} />
+// 				<div className="create-button" onClick={onCreate}>
+// 					추가
+// 				</div>
+// 			</div>
+// 		);
+// 	}
+// }
 
 export default Form;
