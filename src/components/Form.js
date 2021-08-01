@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import './Form.css';
 import todoState from '../todoState';
 import colorState from '../colorState';
 
 function Form() {
 	const [inputValue, setInputValue] = useState('');
-	// const setTodoList = useSetRecoilState(todoState);
 	const [todoList, setTodoList] = useRecoilState(todoState);
 	const color = useRecoilValue(colorState);
 

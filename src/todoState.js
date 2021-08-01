@@ -1,6 +1,4 @@
-import { atom, selector } from 'recoil';
-import colorState from './colorState';
-
+import { atom } from 'recoil';
 const todoState = atom({
 	key: 'todoState',
 	default: [],
