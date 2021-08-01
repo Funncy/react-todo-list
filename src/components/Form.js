@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
 import './Form.css';
 import todoState from '../todoState';
+import colorState from '../colorState';
 
 function Form() {
 	const [inputValue, setInputValue] = useState('');
 	// const setTodoList = useSetRecoilState(todoState);
 	const [todoList, setTodoList] = useRecoilState(todoState);
+	const color = useRecoilValue(colorState);
 
 	const addItem = () => {
 		console.log(todoList);
@@ -16,9 +18,10 @@ function Form() {
 				id: getId(),
 				text: inputValue,
 				checked: false,
-				color: '#343a40',
+				color: color.color,
 			},
 		]);
+		console.log(todoList);
 		setInputValue('');
 	};
 

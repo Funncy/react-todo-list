@@ -15,6 +15,7 @@ class App extends Component {
 		return (
 			<RecoilRoot>
 				<TodoListTemplate form={<Form />}>
+					<Palette />
 					<TodoItemList />
 				</TodoListTemplate>
 				{/* <Counter /> */}
