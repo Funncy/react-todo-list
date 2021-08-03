@@ -1,0 +1,22 @@
+.filter {
+	display: flex;
+
+	padding: 10px;
+}
+
+.filter_button {
+	background-color: aquamarine;
+	margin-right: 20px;
+	padding: 5px;
+	border-radius: 10%;
+	color: aliceblue;
+	cursor: pointer;
+}
+
+.filter_button:hover {
+	color: antiquewhite;
+}
+
+.filter_button.active {
+	color: black;
+}
