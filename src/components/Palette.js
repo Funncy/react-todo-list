@@ -1,7 +1,7 @@
 import React from 'react';
 import './Palette.css';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import colorState from '../colorState';
+import colorState from '../recoil/colorState';
 
 function Color({ color, active }) {
 	const [colors, setColors] = useRecoilState(colorState);

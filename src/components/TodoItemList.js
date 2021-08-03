@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 import { useRecoilValue } from 'recoil';
-import filteredTodoListState from '../filteredTodoListState';
+import filteredTodoListState from '../recoil/filteredTodoListState';
 
 function TodoItemList() {
 	const todos = useRecoilValue(filteredTodoListState);

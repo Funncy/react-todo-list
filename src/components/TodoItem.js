@@ -1,7 +1,7 @@
 import React from 'react';
 import './TodoItem.css';
 import { useRecoilState } from 'recoil';
-import todoState from '../todoState';
+import todoState from '../recoil/todoState';
 
 function TodoItem({ text, checked, id, color }) {
 	const [todos, setTodos] = useRecoilState(todoState);

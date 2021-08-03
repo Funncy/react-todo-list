@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import './Form.css';
-import todoState from '../todoState';
-import colorState from '../colorState';
+import todoState from '../recoil/todoState';
+import colorState from '../recoil/colorState';
 
 function Form() {
 	const [inputValue, setInputValue] = useState('');

@@ -1,6 +1,6 @@
 import './TodoFilter.css';
 import { useRecoilState } from 'recoil';
-import todoFilterState from '../todoFilterState';
+import todoFilterState from '../recoil/todoFilterState';
 
 function TodoFilter() {
 	const [filterState, setFilterState] = useRecoilState(todoFilterState);
